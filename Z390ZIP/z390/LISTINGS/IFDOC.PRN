@@ -1,0 +1,888 @@
+18:59:23 IFDOC     MZ390 START USING z390 V1.5.06 ON J2SE 1.8.0_121 03/26/21
+AZ390I Copyright 2011 Automated Software Tools Corporation
+AZ390I z390 is licensed under GNU General Public License
+AZ390I program = e:\Documents\SoftwareICreated\Mainframe Macros\2021_03_23\z390\SOURCE\IFDOC
+AZ390I options = sysmac(adhs+.) syscpy(adhs+.)
+External Symbol Definitions
+ ESD=0001 LOC=00000000 LEN=00000000 TYPE=CST NAME=$PRIVATE
+ ESD=0002 LOC=00000000 LEN=000004B8 TYPE=CST NAME=IFDOC
+ ESD=0003 LOC=000004B8 LEN=00000048 TYPE=CST NAME=$$WA$$
+ ESD=0004 LOC=00000000 LEN=00000000 TYPE=EXT NAME=$$WA$$
+Assembler Listing
+000000                                       (1/44)1 IFDOC    TITLE 'EXAMPLES OF "IF" LOGIC MACRO INSTRUCTIONS'
+000000                                       (1/46)2 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000000                                       (1/47)3 *                                                                     *
+000000                                       (1/48)4 *      THESE FOLLOWING STATEMENTS ARE NORMAL zOS INITIALIZATION       *
+000000                                       (1/49)5 *                                                                     *
+000000                                       (1/50)6 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000000                                       (1/51)7 *
+000000                  00000000             (1/52)8 R0       EQU   0
+000000                  00000001             (1/53)9 R1       EQU   1       STANDARD
+000000                  00000002            (1/54)10 R2       EQU   2        EQUATES
+000000                  00000003            (1/55)11 R3       EQU   3         FOR
+000000                  00000004            (1/56)12 R4       EQU   4          GENERAL
+000000                  00000005            (1/57)13 R5       EQU   5           PURPOSE
+000000                  00000006            (1/58)14 R6       EQU   6            REGISTERS.
+000000                  00000007            (1/59)15 R7       EQU   7             YOU
+000000                  00000008            (1/60)16 R8       EQU   8              MIGHT
+000000                  00000009            (1/61)17 R9       EQU   9               AS
+000000                  0000000A            (1/62)18 R10      EQU   10               WELL
+000000                  0000000B            (1/63)19 R11      EQU   11                JUST
+000000                  0000000C            (1/64)20 R12      EQU   12                 GET
+000000                  0000000D            (1/65)21 R13      EQU   13                  USED
+000000                  0000000E            (1/66)22 R14      EQU   14                   TO
+000000                  0000000F            (1/67)23 R15      EQU   15                    IT.
+000000                                      (1/68)24 *
+000000                                      (1/69)25 IFDOC    CSECT 
+000000                                      (1/70)26 *
+000000 90ECD00C                             (1/71)27          STM   R14,R12,12(R13)     SAVE REGS IN CALLER'S SAVE AREA
+000004 18CF                                 (1/72)28          LR    R12,R15             PRIME BASE REG
+000006 41B0C800                             (1/73)29          LA    R11,2048(,R12)      LET'S ADDRESS
+00000A 41B0B800                             (1/74)30          LA    R11,2048(,R11)      - ANOTHER 4K
+00000E                                      (1/75)31          USING IFDOC,R12,R11       SET BASE REGISTER FOR PROGRAM
+LISTUSE IFDOC    ESD=0002 LOC=00000000 LEN=01000 REG=C OFF=00000 LAB=
+LISTUSE IFDOC    ESD=0002 LOC=00001000 LEN=01000 REG=B OFF=00000 LAB=
+00000E 181D                                 (1/76)32          LR    R1,R13              COPY POINTER TO CALLER'S SA
+000010 58D0C418                000418       (1/77)33          L     R13,VCON$WA$        ADDRESS OF MY SAVE/WORK AREA
+000014                                      (1/78)34          USING $$WA$$,R13          SEPARATE CSECT FOR REENTRANCY
+LISTUSE IFDOC    ESD=0002 LOC=00000000 LEN=01000 REG=C OFF=00000 LAB=
+LISTUSE IFDOC    ESD=0002 LOC=00001000 LEN=01000 REG=B OFF=00000 LAB=
+LISTUSE $$WA$$   ESD=0003 LOC=000004B8 LEN=01000 REG=D OFF=00000 LAB=
+000014 5010D004                0004BC       (1/79)35          ST    R1,SAVEAREA+4       BACK LINK TO CALLER'S SAVE AREA
+000018 50D01008                             (1/80)36          ST    R13,8(,R1)          FORWARD LINK TO MY SAVE AREA
+00001C                                      (1/81)37 *
+00001C 47F00000                             (1/82)38          B     0                   CREATE ABEND
+000020                                      (1/83)39 *
+0004B8                                      (1/84)40 $$WA$$   CSECT 
+0004B8 0000000000000000                     (1/85)41 SAVEAREA DC    18F'0'              MY SAVE AREA
+000020                                      (1/86)42 IFDOC    CSECT 
+000020                                      (1/87)43 *
+000020                                      (1/88)44          PRINT GEN
+000020                                      (1/89)45 *
+000020                                      (1/90)46 *
+000020                                      (1/91)47 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000020                                      (1/92)48 *                                                                     *
+000020                                      (1/93)49 *                   THE "IF" STATEMENT                                *
+000020                                      (1/94)50 *                                                                     *
+000020                                      (1/95)51 *      THE FORMAT OF THE STATEMENT IS:                                *
+000020                                      (1/96)52 *                                                                     *
+000020                                      (1/97)53 *        IF    (CLC,A,Z,NE)                                           *
+000020                                      (1/98)54 *                                                                     *
+000020                                      (1/99)55 * WHERE THE 'CLC' CAN BE ANY INSTRUCTION THAT SETS THE CONDITION      *
+000020                                     (1/100)56 * CODE, 'A' IS THE FIRST OPERAND, 'Z' THE SECOND, AND 'NE' CAN BE ANY *
+000020                                     (1/101)57 * CONDITION WHICH IS A MEMBER OF THE EXTENDED MNEMONIC BRANCH         *
+000020                                     (1/102)58 * INSTRUCTIONS, AND SETS THE CONDITION IN WHICH THE IF-GROUP IS TO    *
+000020                                     (1/103)59 * BE EXECUTED. EXAMPLES INCLUDE 'E', 'NE', 'NO', ETC. THE INSTRUCTION *
+000020                                     (1/104)60 * DOES NOT HAVE TO HAVE TWO OPERANDS. IN ANY CASE, THE OP-CODE MUST   *
+000020                                     (1/105)61 * BE THE FIRST POSITIONAL PARAMETER WITHIN THE PARENTHESES, AND THE   *
+000020                                     (1/106)62 * CONDITION, SUCH AS "E" OR "NE", MUST BE THE LAST.                   *
+000020                                     (1/107)63 *                                                                     *
+000020                                     (1/108)64 *      IF    (CLC,A,Z,NE)                                             *
+000020                                     (1/109)65 *                                                                     *
+000020                                     (1/110)66 *               ONE OR MORE INSTRUCTIONS                              *
+000020                                     (1/111)67 *               TO BE EXECUTED IF THE ABOVE                           *
+000020                                     (1/112)68 *               LOGIC GROUP EVALUATES TO "TRUE"                       *
+000020                                     (1/113)69 *                                                                     *
+000020                                     (1/114)70 *      ENDIF                                                          *
+000020                                     (1/115)71 *                                                                     *
+000020                                     (1/116)72 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000020                                     (1/117)73 *        1         2         3         4         5         6         7
+000020                                     (1/118)74 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+000020                                     (1/119)75          IF    (CLC,A,Z,NE)
+000020 D503C481C4B1     000481 0004B1       (3/78)76=         CLC   A,Z       TWO OPERANDS
+000026 A7840005                000030       (2/33)77+         JE    $NEXT1    BRANCH IF CC INDICATES FAIL
+00002A FA30C450C444     000450 000444      (1/120)79            AP    LEVEL1_PASS_COUNTER,=P'1'
+000030                                     (1/121)80          ENDIF 
+000030                                      (5/37)81+$NEXT1   DC    0H'0'
+000030                                     (1/122)83 *
+000030 41A0C481                000481      (1/123)84          LA    R10,A
+000034                                     (1/124)85 *        1         2         3         4         5         6         7
+000034                                     (1/125)86 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+000034                                     (1/126)87          IF    (CLC,0(4,R10),=C'ZZZZ',NE)
+000034 D503A000C440            000440       (3/78)88=         CLC   0(4,R10),=C'ZZZZ'       TWO OPERANDS
+00003A A7840005                000044       (2/33)89+         JE    $NEXT2    BRANCH IF CC INDICATES FAIL
+00003E FA30C450C444     000450 000444      (1/127)91            AP    LEVEL1_PASS_COUNTER,=P'1'
+000044                                     (1/128)92          ENDIF 
+000044                                      (5/37)93+$NEXT2   DC    0H'0'
+000044                                     (1/129)95 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000044                                     (1/130)96 * SAME - WITH A ONE OPERAND INSTRUCTION                               *
+000044                                     (1/131)97 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000044                                     (1/132)98 TS010    IF    (TS,SPECIAL,Z)
+000044 9300C480                000480       (3/72)99=TS010    TS    SPECIAL              ONE OPERAND
+000048 A7740005                000052      (2/33)100+         JNZ   $NEXT3    BRANCH IF CC INDICATES FAIL
+00004C FA30C450C444     000450 000444     (1/133)102            AP    LEVEL1_PASS_COUNTER,=P'1'
+000052                                    (1/134)103          ENDIF  ,
+000052                                     (5/37)104+$NEXT3   DC    0H'0'
+000052                                    (1/135)106 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000052                                    (1/136)107 * SAME - WITH A THREE OPERAND INSTRUCTION                             *
+000052                                    (1/137)108 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000052 F236C47CC445     00047C 000445     (1/138)109          PACK  SHIFT_PACKED,=Z'1234567'
+000058                                    (1/139)110 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000058                                    (1/140)111 *  "SRP" INSTRUCTION "SHIFT AND ROUND DECIMAL" - THREE OPERANDS       *
+000058                                    (1/141)112 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000058                                    (1/142)113 SRP010   IF    (SRP,SHIFT_PACKED,5,3,P) "POSITIVE"
+000058 F033C47C0005     00047C             (3/84)115=SRP010   SRP   SHIFT_PACKED,5,3 THREE OPERANDS
+00005E A7D40005                000068      (2/33)116+         JNP   $NEXT4    BRANCH IF CC INDICATES FAIL
+000062 FA30C450C444     000450 000444     (1/143)118            AP    LEVEL1_PASS_COUNTER,=P'1'
+000068                                    (1/144)119          ENDIF  ,
+000068                                     (5/37)120+$NEXT4   DC    0H'0'
+000068                                    (1/145)122 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000068                                    (1/146)123 * "RISBHGZ" - A FOUR OPERAND INSTRUCTION                              *
+000068                                    (1/147)124 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000068 E310C4200004            000420     (1/148)125          LG    R1,=X'0123456789ABCDEF'
+00006E E320C4280004            000428     (1/149)126          LG    R2,=X'FEDCBA9876543210'
+000074                                    (1/150)127 RISBHGZ010 IF (RISBHGZ,R1,R2,16,31,Z)
+000074 EC12109F005D                        (3/90)128=RISBHGZ010 RISBHGZ R1,R2,16,31  FOUR OPERANDS
+00007A A7740005                000084      (2/33)129+         JNZ   $NEXT5    BRANCH IF CC INDICATES FAIL
+00007E FA30C450C444     000450 000444     (1/151)131            AP    LEVEL1_PASS_COUNTER,=P'1'
+000084                                    (1/152)132          ENDIF  ,
+000084                                     (5/37)133+$NEXT5   DC    0H'0'
+000084                                    (1/153)135 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000084                                    (1/154)136 *  "RNSBG" INSTRUCTION  - FIVE OPERANDS                               *
+000084                                    (1/155)137 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000084 E350C4300004            000430     (1/156)138          LG    R5,=C'12345672'
+00008A E360C4380004            000438     (1/157)139          LG    R6,=C'ABCDEFGC'
+000090                                    (1/158)140 RNSBG010 IF    (RNSBG,R5,R6,56,7,0,P) "POSITIVE"
+000090 EC5638070054                        (3/96)141=RNSBG010 RNSBG R5,R6,56,7,0 FIVE OPERANDS
+000096 A7D40005                0000A0      (2/33)142+         JNP   $NEXT6    BRANCH IF CC INDICATES FAIL
+00009A FA30C450C444     000450 000444     (1/159)144            AP    LEVEL1_PASS_COUNTER,=P'1'
+0000A0                                    (1/160)145          ENDIF  ,
+0000A0                                     (5/37)146+$NEXT6   DC    0H'0'
+0000A0                                    (1/161)148 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0000A0                                    (1/162)149 *                                                                     *
+0000A0                                    (1/163)150 *                 THE "ELSE" STATEMENT                                *
+0000A0                                    (1/164)151 *                                                                     *
+0000A0                                    (1/165)152 *      THE FORMAT OF THE STATEMENT IS:                                *
+0000A0                                    (1/166)153 *                                                                     *
+0000A0                                    (1/167)154 *        ELSE                                                         *
+0000A0                                    (1/168)155 *                                                                     *
+0000A0                                    (1/169)156 * IT MUST FOLLOW AN "IF" STATEMENT AND PRECEDE ITS MATCHING "ENDIF".  *
+0000A0                                    (1/170)157 * THE CODE THAT YOU PROVIDE BETWEEN THE "ELSE" AND THE "ENDIF" WILL   *
+0000A0                                    (1/171)158 * BE EXECUTED IF THE "IF" CLAUSE(S) RESULT IN "NOT TRUE". THE "ELSE"  *
+0000A0                                    (1/172)159 * IS OPTIONAL, AND IN ITS ABSENCE NO ACTION WILL BE TAKEN IN THE      *
+0000A0                                    (1/173)160 * EVENT THAT THE EXECUTION OF THE "IF" MACRO RESULTS IN "FALSE".      *
+0000A0                                    (1/174)161 *                                                                     *
+0000A0                                    (1/175)162 *      IF    ...                                                      *
+0000A0                                    (1/176)163 *                                                                     *
+0000A0                                    (1/177)164 *               ONE OR MORE INSTRUCTIONS                              *
+0000A0                                    (1/178)165 *               TO BE EXECUTED IF THE ABOVE                           *
+0000A0                                    (1/179)166 *               LOGIC GROUP EVALUATES TO "TRUE"                       *
+0000A0                                    (1/180)167 *                                                                     *
+0000A0                                    (1/181)168 *      ELSE                                                           *
+0000A0                                    (1/182)169 *                                                                     *
+0000A0                                    (1/183)170 *               ONE OR MORE INSTRUCTIONS                              *
+0000A0                                    (1/184)171 *               TO BE EXECUTED IF THE ABOVE                           *
+0000A0                                    (1/185)172 *               LOGIC GROUP EVALUATES TO "FALSE"                      *
+0000A0                                    (1/186)173 *                                                                     *
+0000A0                                    (1/187)174 *      ENDIF                                                          *
+0000A0                                    (1/188)175 *                                                                     *
+0000A0                                    (1/189)176 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0000A0                                    (1/190)177 *        1         2         3         4         5         6         7
+0000A0                                    (1/191)178 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+0000A0                                    (1/192)179          IF    (CLI,EOFSW,C'N',E)
+0000A0 95D5C44C                00044C      (3/78)180=         CLI   EOFSW,C'N'       TWO OPERANDS
+0000A4 A7740007                0000B2      (2/33)181+         JNE   $NEXT7    BRANCH IF CC INDICATES FAIL
+0000A8 FA30C450C444     000450 000444     (1/193)183            AP    LEVEL1_PASS_COUNTER,=P'1'
+0000AE                                    (1/194)184          ELSE 
+0000AE A7F40005                0000B8      (6/34)185+         J     $FINI8
+0000B2                                     (6/36)186+$NEXT7   DC    0H'0'
+0000B2 FA30C458C444     000458 000444     (1/195)188            AP    LEVEL1_ELSE_COUNTER,=P'1'
+0000B8                                    (1/196)189          ENDIF 
+0000B8                                     (5/45)190+$FINI8   DC    0H'0'
+0000B8                                    (1/197)192 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0000B8                                    (1/198)193 *                                                                     *
+0000B8                                    (1/199)194 *                 THE "ELSEIF" STATEMENT                              *
+0000B8                                    (1/200)195 *                                                                     *
+0000B8                                    (1/201)196 *      THE FORMAT OF THE STATEMENT IS:                                *
+0000B8                                    (1/202)197 *                                                                     *
+0000B8                                    (1/203)198 *        ELSEIF (CLC,A,Z,E)                                           *
+0000B8                                    (1/204)199 *                                                                     *
+0000B8                                    (1/205)200 * IT MUST FOLLOW AN "IF" STATEMENT AND PRECEDE ITS MATCHING "ENDIF".  *
+0000B8                                    (1/206)201 * IF THERE IS AN "ELSE" STATEMENT WITHIN THIS "IF" GROUP, THEN THE    *
+0000B8                                    (1/207)202 * "ELSEIF" MUST PRECEDE THE "ELSE".                                   *
+0000B8                                    (1/208)203 *                                                                     *
+0000B8                                    (1/209)204 * THE "ELSEIF" STATEMENT SUPPORTS THE SAME RICHNESS OF FUNCTION THAT  *
+0000B8                                    (1/210)205 * THE "IF" STATEMENT PROVIDES. THE "IF" STATEMENT'S FULL POWER IS     *
+0000B8                                    (1/211)206 * DESCRIBED IN SOME OF THE EXAMPLES THAT FOLLOW.                      *
+0000B8                                    (1/212)207 *                                                                     *
+0000B8                                    (1/213)208 * THE CODE THAT YOU PROVIDE BETWEEN THE "ELSEIF" AND THE FOLLOWING    *
+0000B8                                    (1/214)209 * "ELSE" OR "ENDIF" WILL BE EXECUTED IF THE "IF" CLAUSE(S) AND ALL    *
+0000B8                                    (1/215)210 * PREVIOUS "ELSEIF" STATEMENTS ARE FALSE, AND THE RESULT OF THIS      *
+0000B8                                    (1/216)211 * "ELSEIF" IS TRUE. THE "ELSEIF" IS OPTIONAL, MAY OCCUR MORE THAN     *
+0000B8                                    (1/217)212 * ONCE, AND MUST BE CODED BETWEEN THE "IF" AND THE "ELSE" OR "ENDIF". *
+0000B8                                    (1/218)213 *                                                                     *
+0000B8                                    (1/219)214 *      IF       ...                                                   *
+0000B8                                    (1/220)215 *                                                                     *
+0000B8                                    (1/221)216 *               ONE OR MORE INSTRUCTIONS                              *
+0000B8                                    (1/222)217 *               TO BE EXECUTED IF THE ABOVE                           *
+0000B8                                    (1/223)218 *               LOGIC GROUP EVALUATES TO "TRUE"                       *
+0000B8                                    (1/224)219 *                                                                     *
+0000B8                                    (1/225)220 *      ELSEIF   ...                                                   *
+0000B8                                    (1/226)221 *                                                                     *
+0000B8                                    (1/227)222 *               ONE OR MORE INSTRUCTIONS TO BE EXECUTED IF THIS       *
+0000B8                                    (1/228)223 *               "ELSEIF" EVALUATES TO "TRUE" AND THE PRECEDING "IF"   *
+0000B8                                    (1/229)224 *               AND ANY ADDITIONAL "ELSEIF" STATEMENT(S) ALL EVALUATE *
+0000B8                                    (1/230)225 *               TO "FALSE"                                            *
+0000B8                                    (1/231)226 *                                                                     *
+0000B8                                    (1/232)227 *      ENDIF                                                          *
+0000B8                                    (1/233)228 *                                                                     *
+0000B8                                    (1/234)229 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0000B8                                    (1/235)230 *        1         2         3         4         5         6         7
+0000B8                                    (1/236)231 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+0000B8                                    (1/237)232          IF    (CLC,A,Z,NE)
+0000B8 D503C481C4B1     000481 0004B1      (3/78)233=         CLC   A,Z       TWO OPERANDS
+0000BE A7840007                0000CC      (2/33)234+         JE    $NEXT9    BRANCH IF CC INDICATES FAIL
+0000C2 FA30C450C444     000450 000444     (1/238)236            AP    LEVEL1_PASS_COUNTER,=P'1'
+0000C8                                    (1/239)237          ELSEIF (CLC,B,Z,E)
+0000C8 A7F4000A                0000DC      (7/35)238+         J     $FINI10
+0000CC D503C485C4B1     000485 0004B1      (3/78)241=$NEXT9   CLC   B,Z       TWO OPERANDS
+0000D2 A7740005                0000DC      (2/33)242+         JNE   $NEXT11    BRANCH IF CC INDICATES FAIL
+0000D6 FA30C454C444     000454 000444     (1/240)245            AP    LEVEL1_ELSEIF_COUNTER,=P'1'
+0000DC                                    (1/241)246          ENDIF 
+0000DC                                     (5/37)247+$NEXT11  DC    0H'0'
+0000DC                                     (5/45)248+$FINI10  DC    0H'0'
+0000DC                                    (1/242)250 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0000DC                                    (1/243)251 *                                                                     *
+0000DC                                    (1/244)252 *                 BOTH "ELSEIF" AND "ELSE"                            *
+0000DC                                    (1/245)253 *                                                                     *
+0000DC                                    (1/246)254 * NOTE: IF AN "ELSE" IS USED IN THE SAME IF-GROUP AS ONE OR MORE      *
+0000DC                                    (1/247)255 *       "ELSEIF" STATEMENTS, THEN THE "ELSE" MUST BE THE LAST.        *
+0000DC                                    (1/248)256 *                                                                     *
+0000DC                                    (1/249)257 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0000DC                                    (1/250)258 *        1         2         3         4         5         6         7
+0000DC                                    (1/251)259 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+0000DC                                    (1/252)260          IF    (CLC,A,Z,NE)
+0000DC D503C481C4B1     000481 0004B1      (3/78)261=         CLC   A,Z       TWO OPERANDS
+0000E2 A7840007                0000F0      (2/33)262+         JE    $NEXT12    BRANCH IF CC INDICATES FAIL
+0000E6 FA30C450C444     000450 000444     (1/253)264            AP    LEVEL1_PASS_COUNTER,=P'1'
+0000EC                                    (1/254)265          ELSEIF (CLC,B,Z,E)
+0000EC A7F40023                000132      (7/35)266+         J     $FINI13
+0000F0 D503C485C4B1     000485 0004B1      (3/78)269=$NEXT12  CLC   B,Z       TWO OPERANDS
+0000F6 A7740007                000104      (2/33)270+         JNE   $NEXT14    BRANCH IF CC INDICATES FAIL
+0000FA FA30C454C444     000454 000444     (1/255)273            AP    LEVEL1_ELSEIF_COUNTER,=P'1'
+000100                                    (1/256)274          ELSEIF (CLC,C,Z,E)
+000100 A7F40019                000132      (7/35)275+         J     $FINI13
+000104 D503C489C4B1     000489 0004B1      (3/78)278=$NEXT14  CLC   C,Z       TWO OPERANDS
+00010A A7740007                000118      (2/33)279+         JNE   $NEXT15    BRANCH IF CC INDICATES FAIL
+00010E FA30C454C444     000454 000444     (1/257)282            AP    LEVEL1_ELSEIF_COUNTER,=P'1'
+000114                                    (1/258)283          ELSEIF (CLC,D,Z,E)
+000114 A7F4000F                000132      (7/35)284+         J     $FINI13
+000118 D503C48DC4B1     00048D 0004B1      (3/78)287=$NEXT15  CLC   D,Z       TWO OPERANDS
+00011E A7740007                00012C      (2/33)288+         JNE   $NEXT16    BRANCH IF CC INDICATES FAIL
+000122 FA30C454C444     000454 000444     (1/259)291            AP    LEVEL1_ELSEIF_COUNTER,=P'1'
+000128                                    (1/260)292          ELSE  ,
+000128 A7F40005                000132      (6/34)293+         J     $FINI13
+00012C                                     (6/36)294+$NEXT16  DC    0H'0'
+00012C FA30C458C444     000458 000444     (1/261)296            AP    LEVEL1_ELSE_COUNTER,=P'1'
+000132                                    (1/262)297          ENDIF 
+000132                                     (5/45)298+$FINI13  DC    0H'0'
+000132                                    (1/263)300 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000132                                    (1/264)301 *                                                                     *
+000132                                    (1/265)302 *                      THE "OR" CONJUNCTION                           *
+000132                                    (1/266)303 *                                                                     *
+000132                                    (1/267)304 *      TO EXECUTE THE IF-GROUP IF EITHER ONE OF TWO CONDITIONS IS     *
+000132                                    (1/268)305 * TRUE, THE FORMAT IS:                                                *
+000132                                    (1/269)306 *                                                           72        *
+000132                                    (1/270)307 *      IF    (CLC,A,Z,NE),OR,                                C        *
+000132                                    (1/271)308 *            (CLC,B,Z,NE)                                             *
+000132                                    (1/272)309 *                                                                     *
+000132                                    (1/273)310 *               ONE OR MORE INSTRUCTIONS                              *
+000132                                    (1/274)311 *               TO BE EXECUTED IF THE ABOVE                           *
+000132                                    (1/275)312 *               LOGIC GROUP EVALUATES TO "TRUE"                       *
+000132                                    (1/276)313 *                                                                     *
+000132                                    (1/277)314 *      ENDIF                                                          *
+000132                                    (1/278)315 *                                                                     *
+000132                                    (1/279)316 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000132                                    (1/280)317 *        1         2         3         4         5         6         7
+000132                                    (1/281)318 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+000132                                    (1/283)319          IF    (CLC,A,Z,NE),OR,(CLC,B,Z,NE)
+000132 D503C481C4B1     000481 0004B1      (3/78)320=         CLC   A,Z       TWO OPERANDS
+000138 A7740007                000146     (3/253)321=         JNE   $MDT17    TRUE RESULT - POSSIBLE PASS
+00013C D503C485C4B1     000485 0004B1      (3/78)322=         CLC   B,Z       TWO OPERANDS
+000142 A7840005                00014C      (2/33)323+         JE    $NEXT18    BRANCH IF CC INDICATES FAIL
+000146                                     (2/36)324+$MDT17   DC    0H'0'               END RESULT WAS PASS - DO THE EXECUTE
+000146 FA30C450C444     000450 000444     (1/284)326            AP    LEVEL1_PASS_COUNTER,=P'1'
+00014C                                    (1/285)327          ENDIF 
+00014C                                     (5/37)328+$NEXT18  DC    0H'0'
+00014C                                    (1/286)330 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+00014C                                    (1/287)331 *                                                                     *
+00014C                                    (1/288)332 *                      THE "AND" CONJUNCTION                          *
+00014C                                    (1/289)333 *                                                                     *
+00014C                                    (1/290)334 *      TO EXECUTE THE IF-GROUP IF BOTH OF THE TWO CONDITIONS ARE      *
+00014C                                    (1/291)335 * TRUE, THE FORMAT IS:                                                *
+00014C                                    (1/292)336 *                                                                     *
+00014C                                    (1/293)337 *      IF    (CLC,A,Z,NE),AND,(LTR,R15,R15,Z)                         *
+00014C                                    (1/294)338 *                                                                     *
+00014C                                    (1/295)339 *               ONE OR MORE INSTRUCTIONS                              *
+00014C                                    (1/296)340 *               TO BE EXECUTED IF THE ABOVE                           *
+00014C                                    (1/297)341 *               LOGIC GROUP EVALUATES TO "TRUE"                       *
+00014C                                    (1/298)342 *                                                                     *
+00014C                                    (1/299)343 *      ENDIF                                                          *
+00014C                                    (1/300)344 *                                                                     *
+00014C                                    (1/301)345 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+00014C                                    (1/302)346 *        1         2         3         4         5         6         7
+00014C                                    (1/303)347 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+00014C                                    (1/304)348          IF    (CLC,A,Z,NE),AND,(LTR,R15,R15,Z)
+00014C D503C481C4B1     000481 0004B1      (3/78)349=         CLC   A,Z       TWO OPERANDS
+000152 A7840008                000162     (3/270)350=         JE    $MDF19    FALSE RESULT - POSSIBLE FAIL
+000156 12FF                                (3/78)351=         LTR   R15,R15       TWO OPERANDS
+000158 A7740005                000162      (2/33)352+         JNZ   $MDF19    BRANCH IF CC INDICATES FAIL
+00015C FA30C450C444     000450 000444     (1/305)354            AP    LEVEL1_PASS_COUNTER,=P'1'
+000162                                    (1/306)355          ENDIF 
+000162                                     (5/37)356+$MDF19   DC    0H'0'
+000162                                    (1/307)358 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000162                                    (1/308)359 *                                                                     *
+000162                                    (1/309)360 *      TO EXECUTE THE IF-GROUP IF THE FIRST AND SECOND LOGICAL        *
+000162                                    (1/310)361 * EXPRESSIONS ARE TRUE, OR THE THIRD EXPRESSION IS TRUE, THE FORMAT   *
+000162                                    (1/311)362 * IS:                                                                 *
+000162                                    (1/312)363 *                                                                     *
+000162                                    (1/313)364 *      IF    (CLC,A,Z,NE),AND,(CLC,B,Z,NE),OR,(CLC,C,Z,NE)            *
+000162                                    (1/314)365 *                                                                     *
+000162                                    (1/315)366 *               ONE OR MORE INSTRUCTIONS                              *
+000162                                    (1/316)367 *               TO BE EXECUTED IF THE ABOVE                           *
+000162                                    (1/317)368 *               LOGIC GROUP EVALUATES TO "TRUE".                      *
+000162                                    (1/318)369 *                                                                     *
+000162                                    (1/319)370 *      ENDIF                                                          *
+000162                                    (1/320)371 *                                                                     *
+000162                                    (1/321)372 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000162                                    (1/322)373 *        1         2         3         4         5         6         7
+000162                                    (1/323)374 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+000162                                    (1/324)375          IF    (CLC,A,Z,NE),AND,(CLC,B,Z,NE),OR,(CLC,C,Z,NE)
+000162 D503C481C4B1     000481 0004B1      (3/78)377=         CLC   A,Z       TWO OPERANDS
+000168 A7840007                000176     (3/270)378=         JE    $MDF20    FALSE RESULT - POSSIBLE FAIL
+00016C D503C485C4B1     000485 0004B1      (3/78)379=         CLC   B,Z       TWO OPERANDS
+000172 A7740007                000180     (3/253)380=         JNE   $MDT21    TRUE RESULT - POSSIBLE PASS
+000176 D503C489C4B1     000489 0004B1      (3/78)381=$MDF20   CLC   C,Z       TWO OPERANDS
+00017C A7840005                000186      (2/33)382+         JE    $NEXT22    BRANCH IF CC INDICATES FAIL
+000180                                     (2/36)383+$MDT21   DC    0H'0'               END RESULT WAS PASS - DO THE EXECUTE
+000180 FA30C450C444     000450 000444     (1/325)385            AP    LEVEL1_PASS_COUNTER,=P'1'
+000186                                    (1/326)386          ENDIF 
+000186                                     (5/37)387+$NEXT22  DC    0H'0'
+000186                                    (1/327)389 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000186                                    (1/328)390 *                                                                     *
+000186                                    (1/329)391 *      SINCE THE EVALUATION OF "AND" IN A LOGICAL EXPRESSION TAKES    *
+000186                                    (1/330)392 * PRECEDENCE OVER "OR", YOU MAY NEED TO OVERRIDE THAT PRECEDENCE TO   *
+000186                                    (1/331)393 * FORCE AN "OR" CONJUNCTION TO BE EVALUATED BEFORE AN "AND". YOU      *
+000186                                    (1/332)394 * WOULD ENCLOSE THE TWO EXPRESSIONS JOINED BY AN "OR" WITH AN         *
+000186                                    (1/333)395 * ADDITIONAL PAIR OF PARENTHESES. HERE THE BODY OF THE IF-GROUP WILL  *
+000186                                    (1/334)396 * EXECUTE IF THE FIRST PHRASE IS TRUE AND EITHER OF THE OTHER TWO     *
+000186                                    (1/335)397 * PHRASES IS TRUE.                                                    *
+000186                                    (1/336)398 *                             |                            |          *
+000186                                    (1/337)399 *                             |                            |          *
+000186                                    (1/338)400 *                             |                            |          *
+000186                                    (1/339)401 *                             V                            V          *
+000186                                    (1/340)402 *      IF    (CLC,A,Z,NE),AND,((CLC,B,Z,NE),OR,(CLC,C,Z,NE))          *
+000186                                    (1/341)403 *                                                                     *
+000186                                    (1/342)404 *               ONE OR MORE INSTRUCTIONS                              *
+000186                                    (1/343)405 *               TO BE EXECUTED IF THE ABOVE                           *
+000186                                    (1/344)406 *               LOGIC GROUP EVALUATES TO "TRUE"                       *
+000186                                    (1/345)407 *                                                                     *
+000186                                    (1/346)408 *      ENDIF                                                          *
+000186                                    (1/347)409 *                                                                     *
+000186                                    (1/348)410 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000186                                    (1/349)411 *        1         2         3         4         5         6         7
+000186                                    (1/350)412 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+000186                                    (1/351)413 *
+000186                                    (1/352)414 *                               V<<<< EXTRA PARENTHESES: >>>>V
+000186                                    (1/353)415 *                               V                            V
+000186                                    (1/354)416          IF    (CLC,A,Z,NE),AND,((CLC,B,Z,NE),OR,(CLC,C,Z,NE))
+000186 D503C481C4B1     000481 0004B1      (3/78)418=         CLC   A,Z       TWO OPERANDS
+00018C A784000F                0001AA     (3/270)419=         JE    $MDF23    FALSE RESULT - POSSIBLE FAIL
+000190 D503C485C4B1     000485 0004B1      (3/78)422=         CLC   B,Z       TWO OPERANDS
+000196 A7740007                0001A4     (3/253)423=         JNE   $MDT24    TRUE RESULT - POSSIBLE PASS
+00019A D503C489C4B1     000489 0004B1      (3/78)424=         CLC   C,Z       TWO OPERANDS
+0001A0 A7840005                0001AA      (2/33)426+         JE    $MDF23    BRANCH IF CC INDICATES FAIL
+0001A4                                     (2/36)427+$MDT24   DC    0H'0'               END RESULT WAS PASS - DO THE EXECUTE
+0001A4 FA30C450C444     000450 000444     (1/355)429            AP    LEVEL1_PASS_COUNTER,=P'1'
+0001AA                                    (1/356)430          ENDIF 
+0001AA                                     (5/37)431+$MDF23   DC    0H'0'
+0001AA                                    (1/357)433 *
+0001AA                                    (1/358)434 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0001AA                                    (1/359)435 *                                                                     *
+0001AA                                    (1/360)436 *      IF (A OR B) AND (C OR D)                                       *
+0001AA                                    (1/361)437 *                                                                     *
+0001AA                                    (1/362)438 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0001AA                                    (1/363)439 *        1         2         3         4         5         6         7
+0001AA                                    (1/364)440 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+0001AA                                    (1/366)441          IF    ((CLC,A,Z,NE),OR,(CLC,B,Z,NE)),AND,((CLC,C,Z,NE),OR,(CLC,D,Z,NE))
+0001AA D503C481C4B1     000481 0004B1      (3/78)445=         CLC   A,Z       TWO OPERANDS
+0001B0 A7740007                0001BE     (3/253)446=         JNE   $MDT25    TRUE RESULT - POSSIBLE PASS
+0001B4 D503C485C4B1     000485 0004B1      (3/78)447=         CLC   B,Z       TWO OPERANDS
+0001BA A784000F                0001D8     (3/270)449=         JE    $MDF26    FALSE RESULT - POSSIBLE FAIL
+0001BE D503C489C4B1     000489 0004B1      (3/78)452=$MDT25   CLC   C,Z       TWO OPERANDS
+0001C4 A7740007                0001D2     (3/253)453=         JNE   $MDT27    TRUE RESULT - POSSIBLE PASS
+0001C8 D503C48DC4B1     00048D 0004B1      (3/78)454=         CLC   D,Z       TWO OPERANDS
+0001CE A7840005                0001D8      (2/33)456+         JE    $MDF26    BRANCH IF CC INDICATES FAIL
+0001D2                                     (2/36)457+$MDT27   DC    0H'0'               END RESULT WAS PASS - DO THE EXECUTE
+0001D2 FA30C450C444     000450 000444     (1/367)459            AP    LEVEL1_PASS_COUNTER,=P'1'
+0001D8                                    (1/368)460          ENDIF 
+0001D8                                     (5/37)461+$MDF26   DC    0H'0'
+0001D8                                    (1/369)463 *
+0001D8                                    (1/370)464 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0001D8                                    (1/371)465 *                                                                     *
+0001D8                                    (1/372)466 *      IF YOU REQUIRE MORE COMPLEX LOGIC, YOU MAY NEST THE "OR"       *
+0001D8                                    (1/373)467 *      CONJUNCTIONS TO ANOTHER LEVEL. YOU MAY ADD EVEN ADDITIONAL     *
+0001D8                                    (1/374)468 *      LEVELS OF COMPLEXITY AS REQUIRED.                              *
+0001D8                                    (1/375)469 *                                                                     *
+0001D8                                    (1/376)470 *      IF A OR B AND ( C OR D AND (E OR F))                           *
+0001D8                                    (1/377)471 *                                                                     *
+0001D8                                    (1/378)472 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0001D8                                    (1/379)473 *        1         2         3         4         5         6         7
+0001D8                                    (1/380)474 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+0001D8                                    (1/383)475          IF    (CLC,A,Z,E),OR,(CLC,B,Z,E),AND,((CLC,C,Z,E),OR,(CLC,D,Z,E),AND,((CLC,E,Z,E),OR,(CLC,F,Z,E)))
+0001D8 D503C481C4B1     000481 0004B1      (3/78)478=         CLC   A,Z       TWO OPERANDS
+0001DE A784001B                000214     (3/253)479=         JE    $MDT28    TRUE RESULT - POSSIBLE PASS
+0001E2 D503C485C4B1     000485 0004B1      (3/78)480=         CLC   B,Z       TWO OPERANDS
+0001E8 A7740019                00021A     (3/270)481=         JNE   $MDF29    FALSE RESULT - POSSIBLE FAIL
+0001EC D503C489C4B1     000489 0004B1      (3/78)484=         CLC   C,Z       TWO OPERANDS
+0001F2 A7840011                000214     (3/253)485=         JE    $MDT30    TRUE RESULT - POSSIBLE PASS
+0001F6 D503C48DC4B1     00048D 0004B1      (3/78)486=         CLC   D,Z       TWO OPERANDS
+0001FC A774000F                00021A     (3/270)487=         JNE   $MDF31    FALSE RESULT - POSSIBLE FAIL
+000200 D503C491C4B1     000491 0004B1      (3/78)490=         CLC   E,Z       TWO OPERANDS
+000206 A7840007                000214     (3/253)491=         JE    $MDT32    TRUE RESULT - POSSIBLE PASS
+00020A D503C495C4B1     000495 0004B1      (3/78)492=         CLC   F,Z       TWO OPERANDS
+000210                  00000214          (3/215)494=$MDT32   EQU   $MDT30    ANCHOR NESTED TRUE NAME
+000210                  0000021A          (3/195)496=$MDF31   EQU   $MDF29    ANCHOR NESTED FALSE NAME
+000210                  00000214          (3/215)497=$MDT30   EQU   $MDT28    ANCHOR NESTED TRUE NAME
+000210 A7740005                00021A      (2/33)498+         JNE   $MDF29    BRANCH IF CC INDICATES FAIL
+000214                                     (2/36)499+$MDT28   DC    0H'0'               END RESULT WAS PASS - DO THE EXECUTE
+000214 FA30C450C444     000450 000444     (1/384)501            AP    LEVEL1_PASS_COUNTER,=P'1'
+00021A                                    (1/385)502          ENDIF 
+00021A                                     (5/37)503+$MDF29   DC    0H'0'
+00021A                                    (1/386)505 *
+00021A                                    (1/387)506 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+00021A                                    (1/388)507 *                                                                     *
+00021A                                    (1/389)508 * IF A IS TRUE AND EITHER B OR C IS TRUE AND D IS TRUE  -  OR...      *
+00021A                                    (1/390)509 * IF E IS TRUE AND EITHER F OR G IS TRUE AND H IS TRUE, THEN EXECUTE  *
+00021A                                    (1/391)510 * THE CODE FOLLOWING THIS "IF" STATEMENT:                             *
+00021A                                    (1/392)511 *                                                                     *
+00021A                                    (1/393)512 *      IF     A & ( B | C) & D    |    E & (F | G) & H                *
+00021A                                    (1/394)513 *                                                                     *
+00021A                                    (1/395)514 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+00021A                                    (1/396)515 *        1         2         3         4         5         6         7
+00021A                                    (1/397)516 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+00021A                                    (1/403)517          IF    (CLC,A,Z,E),AND,((CLC,B,Z,E),OR,(CLC,C,Z,E)),AND,(CLC,D,Z,E),OR,(CLC,E,Z,E),AND,((CLC,F,Z,E),OR,(CLC,G,Z,E)),AND,(CLC,H,Z,E)
+00021A D503C481C4B1     000481 0004B1      (3/78)520=         CLC   A,Z       TWO OPERANDS
+000220 A7740011                000242     (3/270)521=         JNE   $MDF33    FALSE RESULT - POSSIBLE FAIL
+000224 D503C485C4B1     000485 0004B1      (3/78)524=         CLC   B,Z       TWO OPERANDS
+00022A A7840007                000238     (3/253)525=         JE    $MDT34    TRUE RESULT - POSSIBLE PASS
+00022E D503C489C4B1     000489 0004B1      (3/78)526=         CLC   C,Z       TWO OPERANDS
+000234 A7740007                000242     (3/270)528=         JNE   $MDF33    FALSE RESULT - POSSIBLE FAIL
+000238 D503C48DC4B1     00048D 0004B1      (3/78)529=$MDT34   CLC   D,Z       TWO OPERANDS
+00023E A7840016                00026A     (3/253)530=         JE    $MDT35    TRUE RESULT - POSSIBLE PASS
+000242 D503C491C4B1     000491 0004B1      (3/78)531=$MDF33   CLC   E,Z       TWO OPERANDS
+000248 A7740014                000270     (3/270)532=         JNE   $MDF36    FALSE RESULT - POSSIBLE FAIL
+00024C D503C495C4B1     000495 0004B1      (3/78)535=         CLC   F,Z       TWO OPERANDS
+000252 A7840007                000260     (3/253)536=         JE    $MDT37    TRUE RESULT - POSSIBLE PASS
+000256 D503C499C4B1     000499 0004B1      (3/78)537=         CLC   G,Z       TWO OPERANDS
+00025C A774000A                000270     (3/270)539=         JNE   $MDF36    FALSE RESULT - POSSIBLE FAIL
+000260 D503C49DC4B1     00049D 0004B1      (3/78)540=$MDT37   CLC   H,Z       TWO OPERANDS
+000266 A7740005                000270      (2/33)541+         JNE   $MDF36    BRANCH IF CC INDICATES FAIL
+00026A                                     (2/36)542+$MDT35   DC    0H'0'               END RESULT WAS PASS - DO THE EXECUTE
+00026A FA30C450C444     000450 000444     (1/404)544            AP    LEVEL1_PASS_COUNTER,=P'1'
+000270                                    (1/405)545          ENDIF 
+000270                                     (5/37)546+$MDF36   DC    0H'0'
+000270                                    (1/406)548 *
+000270                                    (1/407)549 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000270                                    (1/408)550 *                                                                     *
+000270                                    (1/409)551 * IF A | B & ( C | D & ( E | F & G ) & H ) & J                        *
+000270                                    (1/410)552 *                                                                     *
+000270                                    (1/411)553 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000270                                    (1/412)554 *        1         2         3         4         5         6         7
+000270                                    (1/413)555 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+000270                                    (1/417)556          IF    (CLC,A,Z,E),OR,(CLC,B,Z,E),AND,((CLC,C,Z,E),OR,(CLC,D,Z,E),AND,((CLC,E,Z,E),OR,(CLC,F,Z,E),AND,(CLC,G,Z,E)),AND,(CLC,H,Z,E)),AND,(CLC,J,Z,E)
+000270 D503C481C4B1     000481 0004B1      (3/78)559=         CLC   A,Z       TWO OPERANDS
+000276 A784002A                0002CA     (3/253)560=         JE    $MDT38    TRUE RESULT - POSSIBLE PASS
+00027A D503C485C4B1     000485 0004B1      (3/78)561=         CLC   B,Z       TWO OPERANDS
+000280 A7740028                0002D0     (3/270)562=         JNE   $MDF39    FALSE RESULT - POSSIBLE FAIL
+000284 D503C489C4B1     000489 0004B1      (3/78)566=         CLC   C,Z       TWO OPERANDS
+00028A A784001B                0002C0     (3/253)567=         JE    $MDT40    TRUE RESULT - POSSIBLE PASS
+00028E D503C48DC4B1     00048D 0004B1      (3/78)568=         CLC   D,Z       TWO OPERANDS
+000294 A774001E                0002D0     (3/270)569=         JNE   $MDF41    FALSE RESULT - POSSIBLE FAIL
+000298 D503C491C4B1     000491 0004B1      (3/78)572=         CLC   E,Z       TWO OPERANDS
+00029E A784000C                0002B6     (3/253)573=         JE    $MDT42    TRUE RESULT - POSSIBLE PASS
+0002A2 D503C495C4B1     000495 0004B1      (3/78)574=         CLC   F,Z       TWO OPERANDS
+0002A8 A7740014                0002D0     (3/270)575=         JNE   $MDF43    FALSE RESULT - POSSIBLE FAIL
+0002AC D503C499C4B1     000499 0004B1      (3/78)576=         CLC   G,Z       TWO OPERANDS
+0002B2                  000002D0          (3/195)578=$MDF43   EQU   $MDF41    ANCHOR NESTED FALSE NAME
+0002B2 A774000F                0002D0     (3/270)579=         JNE   $MDF41    FALSE RESULT - POSSIBLE FAIL
+0002B6 D503C49DC4B1     00049D 0004B1      (3/78)580=$MDT42   CLC   H,Z       TWO OPERANDS
+0002BC                  000002D0          (3/195)582=$MDF41   EQU   $MDF39    ANCHOR NESTED FALSE NAME
+0002BC A774000A                0002D0     (3/270)583=         JNE   $MDF39    FALSE RESULT - POSSIBLE FAIL
+0002C0 D503C4A5C4B1     0004A5 0004B1      (3/78)584=$MDT40   CLC   J,Z       TWO OPERANDS
+0002C6 A7740005                0002D0      (2/33)585+         JNE   $MDF39    BRANCH IF CC INDICATES FAIL
+0002CA                                     (2/36)586+$MDT38   DC    0H'0'               END RESULT WAS PASS - DO THE EXECUTE
+0002CA FA30C450C444     000450 000444     (1/418)588            AP    LEVEL1_PASS_COUNTER,=P'1'
+0002D0                                    (1/419)589          ENDIF 
+0002D0                                     (5/37)590+$MDF39   DC    0H'0'
+0002D0                                    (1/420)592 *
+0002D0                                    (1/421)593 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0002D0                                    (1/422)594 *                                                                     *
+0002D0                                    (1/423)595 * IF A | B & ( C | D & ( E | F & G ) | H ) | J                        *
+0002D0                                    (1/424)596 *                                                                     *
+0002D0                                    (1/425)597 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+0002D0                                    (1/426)598 *        1         2         3         4         5         6         7
+0002D0                                    (1/427)599 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+0002D0                                    (1/431)600          IF    (CLC,A,Z,E),OR,(CLC,B,Z,E),AND,((CLC,C,Z,E),OR,(CLC,D,Z,E),AND,((CLC,E,Z,E),OR,(CLC,F,Z,E),AND,(CLC,G,Z,E)),OR,(CLC,H,Z,E)),OR,(CLC,J,Z,E)
+0002D0 D503C481C4B1     000481 0004B1      (3/78)603=         CLC   A,Z       TWO OPERANDS
+0002D6 A784002A                00032A     (3/253)604=         JE    $MDT44    TRUE RESULT - POSSIBLE PASS
+0002DA D503C485C4B1     000485 0004B1      (3/78)605=         CLC   B,Z       TWO OPERANDS
+0002E0 A7740020                000320     (3/270)606=         JNE   $MDF45    FALSE RESULT - POSSIBLE FAIL
+0002E4 D503C489C4B1     000489 0004B1      (3/78)610=         CLC   C,Z       TWO OPERANDS
+0002EA A7840020                00032A     (3/253)611=         JE    $MDT46    TRUE RESULT - POSSIBLE PASS
+0002EE D503C48DC4B1     00048D 0004B1      (3/78)612=         CLC   D,Z       TWO OPERANDS
+0002F4 A7740011                000316     (3/270)613=         JNE   $MDF47    FALSE RESULT - POSSIBLE FAIL
+0002F8 D503C491C4B1     000491 0004B1      (3/78)616=         CLC   E,Z       TWO OPERANDS
+0002FE A7840016                00032A     (3/253)617=         JE    $MDT48    TRUE RESULT - POSSIBLE PASS
+000302 D503C495C4B1     000495 0004B1      (3/78)618=         CLC   F,Z       TWO OPERANDS
+000308 A7740007                000316     (3/270)619=         JNE   $MDF49    FALSE RESULT - POSSIBLE FAIL
+00030C D503C499C4B1     000499 0004B1      (3/78)620=         CLC   G,Z       TWO OPERANDS
+000312                  00000316          (3/195)622=$MDF49   EQU   $MDF47    ANCHOR NESTED FALSE NAME
+000312                  0000032A          (3/215)623=$MDT48   EQU   $MDT46    ANCHOR NESTED TRUE NAME
+000312 A784000C                00032A     (3/253)624=         JE    $MDT46    TRUE RESULT - POSSIBLE PASS
+000316 D503C49DC4B1     00049D 0004B1      (3/78)625=$MDF47   CLC   H,Z       TWO OPERANDS
+00031C                  0000032A          (3/215)627=$MDT46   EQU   $MDT44    ANCHOR NESTED TRUE NAME
+00031C A7840007                00032A     (3/253)628=         JE    $MDT44    TRUE RESULT - POSSIBLE PASS
+000320 D503C4A5C4B1     0004A5 0004B1      (3/78)629=$MDF45   CLC   J,Z       TWO OPERANDS
+000326 A7740005                000330      (2/33)630+         JNE   $NEXT50    BRANCH IF CC INDICATES FAIL
+00032A                                     (2/36)631+$MDT44   DC    0H'0'               END RESULT WAS PASS - DO THE EXECUTE
+00032A FA30C450C444     000450 000444     (1/432)633            AP    LEVEL1_PASS_COUNTER,=P'1'
+000330                                    (1/433)634          ENDIF 
+000330                                     (5/37)635+$NEXT50  DC    0H'0'
+000330                                    (1/434)637 *
+000330                                    (1/435)638 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000330                                    (1/436)639 *                                                                     *
+000330                                    (1/437)640 *                 THE NESTING OF MULTIPLE "IF" GROUPS                 *
+000330                                    (1/438)641 *                                                                     *
+000330                                    (1/439)642 * IF WITHIN THE CONFINES OF ONE "IF" GROUP YOU FIND IT NECESSARY TO   *
+000330                                    (1/440)643 * ADD ANOTHER LEVEL OF CONDITIONAL EXECUTION, THEN YOU MAY NEST ONE   *
+000330                                    (1/441)644 * "IF" GROUP WITHING ANOTHER. EACH SEPERATE "IF" STATEMENT WILL HAVE  *
+000330                                    (1/442)645 * ITS OWN LOGICAL CONSTRUCT, AND MUST BE TERMINATED WITH ITS OWN      *
+000330                                    (1/443)646 * "ENDIF" STATEMENT. THE "ELSEIF" AND "ENDIF" STATEMENTS ARE          *
+000330                                    (1/444)647 * SUPPORTED. YOU MAY INDENT THE NESTED "IF" GROUPS, BUT DOING THAT    *
+000330                                    (1/445)648 * WOULD BE FOR DOCUMENTATION PURPOSES ONLY.                           *
+000330                                    (1/446)649 *      IF    (CLC,A,Z,NE)                                             *
+000330                                    (1/447)650 *                                                                     *
+000330                                    (1/448)651 *               ONE OR MORE INSTRUCTIONS                              *
+000330                                    (1/449)652 *               TO BE EXECUTED IF THE ABOVE                           *
+000330                                    (1/450)653 *               LOGIC GROUP EVALUATES TO "TRUE"                       *
+000330                                    (1/451)654 *                                                                     *
+000330                                    (1/452)655 *        IF    (CLC,B,Z,NE)                                           *
+000330                                    (1/453)656 *                                                                     *
+000330                                    (1/454)657 *               ONE OR MORE INSTRUCTIONS                              *
+000330                                    (1/455)658 *               TO BE EXECUTED IF THE ABOVE (NESTED)                  *
+000330                                    (1/456)659 *               LOGIC GROUP EVALUATES TO "TRUE"                       *
+000330                                    (1/457)660 *                                                                     *
+000330                                    (1/458)661 *        ELSE                                                         *
+000330                                    (1/459)662 *                                                                     *
+000330                                    (1/460)663 *               ONE OR MORE INSTRUCTIONS                              *
+000330                                    (1/461)664 *               TO BE EXECUTED IF THE ABOVE (NESTED)                  *
+000330                                    (1/462)665 *               LOGIC GROUP EVALUATES TO "FALSE"                      *
+000330                                    (1/463)666 *                                                                     *
+000330                                    (1/464)667 *        ENDIF                                                        *
+000330                                    (1/465)668 *                                                                     *
+000330                                    (1/466)669 *      ENDIF                                                          *
+000330                                    (1/467)670 *                                                                     *
+000330                                    (1/468)671 * THE "IF" MACRO SUPPORTS THE NESTING OF AS MANY "IF" GROUPS AS YOU   *
+000330                                    (1/469)672 * REQUIRE TO SUPPORT YOUR LOGIC. HOW MANY LEVELS CAN YOU ACTUALLY     *
+000330                                    (1/470)673 * KEEP TRACK OF?                                                      *
+000330                                    (1/471)674 *                                                                     *
+000330                                    (1/472)675 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000330                                    (1/473)676 *        1         2         3         4         5         6         7
+000330                                    (1/474)677 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+000330                                    (1/475)678          IF    (CLC,A,Z,NE)
+000330 D503C481C4B1     000481 0004B1      (3/78)679=         CLC   A,Z       TWO OPERANDS
+000336 A7840012                00035A      (2/33)680+         JE    $NEXT51    BRANCH IF CC INDICATES FAIL
+00033A FA30C450C444     000450 000444     (1/476)682            AP    LEVEL1_PASS_COUNTER,=P'1'
+000340                                    (1/477)683            IF    (CLC,B,Z,NE)
+000340 D503C485C4B1     000485 0004B1      (3/78)684=         CLC   B,Z       TWO OPERANDS
+000346 A7840007                000354      (2/33)685+         JE    $NEXT52    BRANCH IF CC INDICATES FAIL
+00034A FA30C460C444     000460 000444     (1/478)687              AP    LEVEL2_PASS_COUNTER,=P'1'
+000350                                    (1/479)688            ELSE 
+000350 A7F40005                00035A      (6/34)689+         J     $FINI53
+000354                                     (6/36)690+$NEXT52  DC    0H'0'
+000354 FA30C468C444     000468 000444     (1/480)692              AP    LEVEL2_ELSE_COUNTER,=P'1'
+00035A                                    (1/481)693            ENDIF 
+00035A                                     (5/45)694+$FINI53  DC    0H'0'
+00035A                                    (1/482)696          ENDIF 
+00035A                                     (5/37)697+$NEXT51  DC    0H'0'
+00035A                                    (1/483)699 *
+00035A                                    (1/484)700 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+00035A                                    (1/485)701 *                                                                     *
+00035A                                    (1/486)702 *       ANOTHER EXAMPLE OF THE NESTING OF MULTIPLE "IF" GROUPS        *
+00035A                                    (1/487)703 *                                                                     *
+00035A                                    (1/488)704 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+00035A                                    (1/489)705 *
+00035A                                    (1/490)706 *        1         2         3         4         5         6         7
+00035A                                    (1/491)707 *...V....0....V....0....V....0....V....0....V....0....V....0....V....0.
+00035A                                    (1/492)708          IF    (CLC,A,Z,E)
+00035A D503C481C4B1     000481 0004B1      (3/78)709=         CLC   A,Z       TWO OPERANDS
+000360 A7740049                0003F2      (2/33)710+         JNE   $NEXT54    BRANCH IF CC INDICATES FAIL
+000364 FA30C450C444     000450 000444     (1/493)712            AP    LEVEL1_PASS_COUNTER,=P'1'
+00036A                                    (1/494)713            IF    (CLC,B,Z,E)
+00036A D503C485C4B1     000485 0004B1      (3/78)714=         CLC   B,Z       TWO OPERANDS
+000370 A7740032                0003D4      (2/33)715+         JNE   $NEXT55    BRANCH IF CC INDICATES FAIL
+000374 FA30C460C444     000460 000444     (1/495)717              AP    LEVEL2_PASS_COUNTER,=P'1'
+00037A                                    (1/496)718              IF    (CLC,C,Z,E)
+00037A D503C489C4B1     000489 0004B1      (3/78)719=         CLC   C,Z       TWO OPERANDS
+000380 A7740007                00038E      (2/33)720+         JNE   $NEXT56    BRANCH IF CC INDICATES FAIL
+000384 FA30C470C444     000470 000444     (1/497)722                AP    LEVEL3_PASS_COUNTER,=P'1'
+00038A                                    (1/498)723              ELSEIF (CLC,D,Z,E)
+00038A A7F40023                0003D0      (7/35)724+         J     $FINI57
+00038E D503C48DC4B1     00048D 0004B1      (3/78)727=$NEXT56  CLC   D,Z       TWO OPERANDS
+000394 A7740007                0003A2      (2/33)728+         JNE   $NEXT58    BRANCH IF CC INDICATES FAIL
+000398 FA30C474C444     000474 000444     (1/499)731                AP    LEVEL3_ELSEIF_COUNTER,=P'1'
+00039E                                    (1/500)732              ELSEIF (CLC,E,Z,E)
+00039E A7F40019                0003D0      (7/35)733+         J     $FINI57
+0003A2 D503C491C4B1     000491 0004B1      (3/78)736=$NEXT58  CLC   E,Z       TWO OPERANDS
+0003A8 A7740007                0003B6      (2/33)737+         JNE   $NEXT59    BRANCH IF CC INDICATES FAIL
+0003AC FA30C474C444     000474 000444     (1/501)740                AP    LEVEL3_ELSEIF_COUNTER,=P'1'
+0003B2                                    (1/502)741              ELSEIF (CLC,F,Z,E)
+0003B2 A7F4000F                0003D0      (7/35)742+         J     $FINI57
+0003B6 D503C495C4B1     000495 0004B1      (3/78)745=$NEXT59  CLC   F,Z       TWO OPERANDS
+0003BC A7740007                0003CA      (2/33)746+         JNE   $NEXT60    BRANCH IF CC INDICATES FAIL
+0003C0 FA30C474C444     000474 000444     (1/503)749                AP    LEVEL3_ELSEIF_COUNTER,=P'1'
+0003C6                                    (1/504)750              ELSE 
+0003C6 A7F40005                0003D0      (6/34)751+         J     $FINI57
+0003CA                                     (6/36)752+$NEXT60  DC    0H'0'
+0003CA FA30C478C444     000478 000444     (1/505)754                AP    LEVEL3_ELSE_COUNTER,=P'1'
+0003D0                                    (1/506)755              ENDIF 
+0003D0                                     (5/45)756+$FINI57  DC    0H'0'
+0003D0                                    (1/507)758            ELSEIF (CLC,G,Z,E)
+0003D0 A7F4000F                0003EE      (7/35)759+         J     $FINI61
+0003D4 D503C499C4B1     000499 0004B1      (3/78)762=$NEXT55  CLC   G,Z       TWO OPERANDS
+0003DA A7740007                0003E8      (2/33)763+         JNE   $NEXT62    BRANCH IF CC INDICATES FAIL
+0003DE FA30C464C444     000464 000444     (1/508)766              AP    LEVEL2_ELSEIF_COUNTER,=P'1'
+0003E4                                    (1/509)767            ELSE 
+0003E4 A7F40005                0003EE      (6/34)768+         J     $FINI61
+0003E8                                     (6/36)769+$NEXT62  DC    0H'0'
+0003E8 FA30C468C444     000468 000444     (1/510)771              AP    LEVEL2_ELSE_COUNTER,=P'1'
+0003EE                                    (1/511)772            ENDIF 
+0003EE                                     (5/45)773+$FINI61  DC    0H'0'
+0003EE                                    (1/512)775          ELSEIF  (CLC,H,Z,E)
+0003EE A7F4000F                00040C      (7/35)776+         J     $FINI63
+0003F2 D503C49DC4B1     00049D 0004B1      (3/78)779=$NEXT54  CLC   H,Z       TWO OPERANDS
+0003F8 A7740007                000406      (2/33)780+         JNE   $NEXT64    BRANCH IF CC INDICATES FAIL
+0003FC FA30C458C444     000458 000444     (1/513)783            AP    LEVEL1_ELSE_COUNTER,=P'1'
+000402                                    (1/514)784          ELSE 
+000402 A7F40005                00040C      (6/34)785+         J     $FINI63
+000406                                     (6/36)786+$NEXT64  DC    0H'0'
+000406 FA30C450C444     000450 000444     (1/515)788            AP    LEVEL1_PASS_COUNTER,=P'1'
+00040C                                    (1/516)789          ENDIF 
+00040C                                     (5/45)790+$FINI63  DC    0H'0'
+00040C                                    (1/517)792 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+00040C                                    (1/518)793 *                                                                     *
+00040C                                    (1/519)794 *      THESE FOLLOWING STATEMENTS ARE NORMAL zOS TERMINATION.         *
+00040C                                    (1/520)795 *                                                                     *
+00040C                                    (1/521)796 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+00040C                                    (1/522)797 *
+00040C 58D0D004                0004BC     (1/524)798          L     R13,SAVEAREA+4      ADDRESS OF CALLER'S SAVE AREA
+000410 98ECD00C                           (1/525)799          LM    R14,R12,12(R13)     RESTORE R14 WRAPPED AROUND TO R12
+000414                                    (1/526)800          DROP  R12                 NO LONGER VALID
+LISTUSE $$WA$$   ESD=0003 LOC=000004B8 LEN=01000 REG=D OFF=00000 LAB=
+LISTUSE IFDOC    ESD=0002 LOC=00001000 LEN=01000 REG=B OFF=00000 LAB=
+000414 1FFF                               (1/527)801          SLR   R15,R15             SET RETURN CODE TO ZERO
+000416 07FE                               (1/528)802          BR    R14                 RETURN TO CALLER
+000418                                    (1/529)803 *
+000418 00000000                           (1/530)804 VCON$WA$ DC    V($$WA$$)
+00041C                                    (1/531)805 *
+00041C                                    (1/532)806          LTORG 
+000420 0123456789ABCDEF =X'0123456789ABCDEF'
+000428 FEDCBA9876543210 =X'FEDCBA9876543210'
+000430 F1F2F3F4F5F6F7F2 =C'12345672'
+000438 C1C2C3C4C5C6C7C3 =C'ABCDEFGC'
+000440 E9E9E9E9         =C'ZZZZ'
+000444 1C               =P'1'
+000445 F1F2F3F4F5F6C7   =Z'1234567'
+00044C D5                                 (1/533)807 EOFSW    DC    C'N'
+000450                                    (1/534)808          DS    0D
+000450                                    (1/535)809 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000450                                    (1/536)810 *                                                                     *
+000450                                    (1/537)811 *      THESE FOLLOWING STATEMENTS DEFINE VARIABLES REQUIRED.          *
+000450                                    (1/538)812 *                                                                     *
+000450                                    (1/539)813 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+000450 0000000C                           (1/540)814 LEVEL1_PASS_COUNTER DC PL4'0'
+000454 0000000C                           (1/541)815 LEVEL1_ELSEIF_COUNTER DC PL4'0'
+000458 0000000C                           (1/542)816 LEVEL1_ELSE_COUNTER DC PL4'0'
+00045C 0000000C                           (1/543)817 LEVEL1_FAIL_COUNTER DC PL4'0'
+000460 0000000C                           (1/544)818 LEVEL2_PASS_COUNTER DC PL4'0'
+000464 0000000C                           (1/545)819 LEVEL2_ELSEIF_COUNTER DC PL4'0'
+000468 0000000C                           (1/546)820 LEVEL2_ELSE_COUNTER DC PL4'0'
+00046C 0000000C                           (1/547)821 LEVEL2_FAIL_COUNTER DC PL4'0'
+000470 0000000C                           (1/548)822 LEVEL3_PASS_COUNTER DC PL4'0'
+000474 0000000C                           (1/549)823 LEVEL3_ELSEIF_COUNTER DC PL4'0'
+000478 0000000C                           (1/550)824 LEVEL3_ELSE_COUNTER DC PL4'0'
+00047C 1234567C                           (1/551)825 SHIFT_PACKED DC  PL4'1234567'
+000480 C0                                 (1/552)826 SPECIAL  DC    X'C0'
+000481 C1C1C1C1                           (1/553)827 A        DC    C'AAAA'
+000485 C2C2C2C2                           (1/554)828 B        DC    C'BBBB'
+000489 C3C3C3C3                           (1/555)829 C        DC    C'CCCC'
+00048D C4C4C4C4                           (1/556)830 D        DC    C'DDDD'
+000491 C5C5C5C5                           (1/557)831 E        DC    C'EEEE'
+000495 C6C6C6C6                           (1/558)832 F        DC    C'FFFF'
+000499 C7C7C7C7                           (1/559)833 G        DC    C'GGGG'
+00049D C8C8C8C8                           (1/560)834 H        DC    C'HHHH'
+0004A1 C9C9C9C9                           (1/561)835 I        DC    C'IIII'
+0004A5 D1D1D1D1                           (1/562)836 J        DC    C'JJJJ'
+0004A9 D2D2D2D2                           (1/563)837 K        DC    C'KKKK'
+0004AD D3D3D3D3                           (1/564)838 L        DC    C'LLLL'
+0004B1 E9E9E9E9                           (1/565)839 Z        DC    C'ZZZZ'
+0004B5                                    (1/566)840          END   IFDOC
+Relocation Definitions
+ ESD=0002 LOC=00000418 LEN=4 SIGN=+ XESD=0004
+
+Symbol Table Listing
+
+ SYM=$$WA$$   LOC=000004B8 LEN=00000048 ESD=0003 TYPE=CST  XREF=40 34 
+ SYM=$$WA$$   LOC=00000000 LEN=00000000 ESD=0004 TYPE=EXT  XREF=804 
+ SYM=$FINI10  LOC=000000DC LEN=00000002 ESD=0002 TYPE=REL  XREF=248 238 
+ SYM=$FINI13  LOC=00000132 LEN=00000002 ESD=0002 TYPE=REL  XREF=298 266 275 284 293 
+ SYM=$FINI53  LOC=0000035A LEN=00000002 ESD=0002 TYPE=REL  XREF=694 689 
+ SYM=$FINI57  LOC=000003D0 LEN=00000002 ESD=0002 TYPE=REL  XREF=756 724 733 742 751 
+ SYM=$FINI61  LOC=000003EE LEN=00000002 ESD=0002 TYPE=REL  XREF=773 759 768 
+ SYM=$FINI63  LOC=0000040C LEN=00000002 ESD=0002 TYPE=REL  XREF=790 776 785 
+ SYM=$FINI8   LOC=000000B8 LEN=00000002 ESD=0002 TYPE=REL  XREF=190 185 
+ SYM=$MDF19   LOC=00000162 LEN=00000002 ESD=0002 TYPE=REL  XREF=356 350 352 
+ SYM=$MDF20   LOC=00000176 LEN=00000006 ESD=0002 TYPE=REL  XREF=381 378 
+ SYM=$MDF23   LOC=000001AA LEN=00000002 ESD=0002 TYPE=REL  XREF=431 419 426 
+ SYM=$MDF26   LOC=000001D8 LEN=00000002 ESD=0002 TYPE=REL  XREF=461 449 456 
+ SYM=$MDF29   LOC=0000021A LEN=00000002 ESD=0002 TYPE=REL  XREF=503 481 496 498 
+ SYM=$MDF31   LOC=0000021A LEN=00000001 ESD=0002 TYPE=REL  XREF=496 487 
+ SYM=$MDF33   LOC=00000242 LEN=00000006 ESD=0002 TYPE=REL  XREF=531 521 528 
+ SYM=$MDF36   LOC=00000270 LEN=00000002 ESD=0002 TYPE=REL  XREF=546 532 539 541 
+ SYM=$MDF39   LOC=000002D0 LEN=00000002 ESD=0002 TYPE=REL  XREF=590 562 582 583 585 
+ SYM=$MDF41   LOC=000002D0 LEN=00000001 ESD=0002 TYPE=REL  XREF=582 569 578 579 
+ SYM=$MDF43   LOC=000002D0 LEN=00000001 ESD=0002 TYPE=REL  XREF=578 575 
+ SYM=$MDF45   LOC=00000320 LEN=00000006 ESD=0002 TYPE=REL  XREF=629 606 
+ SYM=$MDF47   LOC=00000316 LEN=00000006 ESD=0002 TYPE=REL  XREF=625 613 622 
+ SYM=$MDF49   LOC=00000316 LEN=00000001 ESD=0002 TYPE=REL  XREF=622 619 
+ SYM=$MDT17   LOC=00000146 LEN=00000002 ESD=0002 TYPE=REL  XREF=324 321 
+ SYM=$MDT21   LOC=00000180 LEN=00000002 ESD=0002 TYPE=REL  XREF=383 380 
+ SYM=$MDT24   LOC=000001A4 LEN=00000002 ESD=0002 TYPE=REL  XREF=427 423 
+ SYM=$MDT25   LOC=000001BE LEN=00000006 ESD=0002 TYPE=REL  XREF=452 446 
+ SYM=$MDT27   LOC=000001D2 LEN=00000002 ESD=0002 TYPE=REL  XREF=457 453 
+ SYM=$MDT28   LOC=00000214 LEN=00000002 ESD=0002 TYPE=REL  XREF=499 479 497 
+ SYM=$MDT30   LOC=00000214 LEN=00000001 ESD=0002 TYPE=REL  XREF=497 485 494 
+ SYM=$MDT32   LOC=00000214 LEN=00000001 ESD=0002 TYPE=REL  XREF=494 491 
+ SYM=$MDT34   LOC=00000238 LEN=00000006 ESD=0002 TYPE=REL  XREF=529 525 
+ SYM=$MDT35   LOC=0000026A LEN=00000002 ESD=0002 TYPE=REL  XREF=542 530 
+ SYM=$MDT37   LOC=00000260 LEN=00000006 ESD=0002 TYPE=REL  XREF=540 536 
+ SYM=$MDT38   LOC=000002CA LEN=00000002 ESD=0002 TYPE=REL  XREF=586 560 
+ SYM=$MDT40   LOC=000002C0 LEN=00000006 ESD=0002 TYPE=REL  XREF=584 567 
+ SYM=$MDT42   LOC=000002B6 LEN=00000006 ESD=0002 TYPE=REL  XREF=580 573 
+ SYM=$MDT44   LOC=0000032A LEN=00000002 ESD=0002 TYPE=REL  XREF=631 604 627 628 
+ SYM=$MDT46   LOC=0000032A LEN=00000001 ESD=0002 TYPE=REL  XREF=627 611 623 624 
+ SYM=$MDT48   LOC=0000032A LEN=00000001 ESD=0002 TYPE=REL  XREF=623 617 
+ SYM=$NEXT1   LOC=00000030 LEN=00000002 ESD=0002 TYPE=REL  XREF=81 77 
+ SYM=$NEXT11  LOC=000000DC LEN=00000002 ESD=0002 TYPE=REL  XREF=247 242 
+ SYM=$NEXT12  LOC=000000F0 LEN=00000006 ESD=0002 TYPE=REL  XREF=269 262 
+ SYM=$NEXT14  LOC=00000104 LEN=00000006 ESD=0002 TYPE=REL  XREF=278 270 
+ SYM=$NEXT15  LOC=00000118 LEN=00000006 ESD=0002 TYPE=REL  XREF=287 279 
+ SYM=$NEXT16  LOC=0000012C LEN=00000002 ESD=0002 TYPE=REL  XREF=294 288 
+ SYM=$NEXT18  LOC=0000014C LEN=00000002 ESD=0002 TYPE=REL  XREF=328 323 
+ SYM=$NEXT2   LOC=00000044 LEN=00000002 ESD=0002 TYPE=REL  XREF=93 89 
+ SYM=$NEXT22  LOC=00000186 LEN=00000002 ESD=0002 TYPE=REL  XREF=387 382 
+ SYM=$NEXT3   LOC=00000052 LEN=00000002 ESD=0002 TYPE=REL  XREF=104 100 
+ SYM=$NEXT4   LOC=00000068 LEN=00000002 ESD=0002 TYPE=REL  XREF=120 116 
+ SYM=$NEXT50  LOC=00000330 LEN=00000002 ESD=0002 TYPE=REL  XREF=635 630 
+ SYM=$NEXT5   LOC=00000084 LEN=00000002 ESD=0002 TYPE=REL  XREF=133 129 
+ SYM=$NEXT51  LOC=0000035A LEN=00000002 ESD=0002 TYPE=REL  XREF=697 680 
+ SYM=$NEXT52  LOC=00000354 LEN=00000002 ESD=0002 TYPE=REL  XREF=690 685 
+ SYM=$NEXT54  LOC=000003F2 LEN=00000006 ESD=0002 TYPE=REL  XREF=779 710 
+ SYM=$NEXT55  LOC=000003D4 LEN=00000006 ESD=0002 TYPE=REL  XREF=762 715 
+ SYM=$NEXT56  LOC=0000038E LEN=00000006 ESD=0002 TYPE=REL  XREF=727 720 
+ SYM=$NEXT58  LOC=000003A2 LEN=00000006 ESD=0002 TYPE=REL  XREF=736 728 
+ SYM=$NEXT59  LOC=000003B6 LEN=00000006 ESD=0002 TYPE=REL  XREF=745 737 
+ SYM=$NEXT60  LOC=000003CA LEN=00000002 ESD=0002 TYPE=REL  XREF=752 746 
+ SYM=$NEXT6   LOC=000000A0 LEN=00000002 ESD=0002 TYPE=REL  XREF=146 142 
+ SYM=$NEXT62  LOC=000003E8 LEN=00000002 ESD=0002 TYPE=REL  XREF=769 763 
+ SYM=$NEXT64  LOC=00000406 LEN=00000002 ESD=0002 TYPE=REL  XREF=786 780 
+ SYM=$NEXT7   LOC=000000B2 LEN=00000002 ESD=0002 TYPE=REL  XREF=186 181 
+ SYM=$NEXT9   LOC=000000CC LEN=00000006 ESD=0002 TYPE=REL  XREF=241 234 
+ SYM=$PRIVATE LOC=00000000 LEN=00000000 ESD=0001 TYPE=CST  XREF=8 
+ SYM=A        LOC=00000481 LEN=00000004 ESD=0002 TYPE=REL  XREF=827 76 84 233 261 
+  320 349 377 418 445 478 520 559 603 679 709 
+ SYM=B        LOC=00000485 LEN=00000004 ESD=0002 TYPE=REL  XREF=828 241 269 322 379 
+  422 447 480 524 561 605 684 714 
+ SYM=C        LOC=00000489 LEN=00000004 ESD=0002 TYPE=REL  XREF=829 278 381 424 452 
+  484 526 566 610 719 
+ SYM=D        LOC=0000048D LEN=00000004 ESD=0002 TYPE=REL  XREF=830 287 454 486 529 
+  568 612 727 
+ SYM=E        LOC=00000491 LEN=00000004 ESD=0002 TYPE=REL  XREF=831 490 531 572 616 
+  736 
+ SYM=EOFSW    LOC=0000044C LEN=00000001 ESD=0002 TYPE=REL  XREF=807 180 
+ SYM=F        LOC=00000495 LEN=00000004 ESD=0002 TYPE=REL  XREF=832 492 535 574 618 
+  745 
+ SYM=G        LOC=00000499 LEN=00000004 ESD=0002 TYPE=REL  XREF=833 537 576 620 762 
+ SYM=H        LOC=0000049D LEN=00000004 ESD=0002 TYPE=REL  XREF=834 540 580 625 779 
+ SYM=I        LOC=000004A1 LEN=00000004 ESD=0002 TYPE=REL  XREF=835 
+ SYM=IFDOC    LOC=00000000 LEN=000004B8 ESD=0002 TYPE=CST  XREF=25 31 42 840 
+ SYM=J        LOC=000004A5 LEN=00000004 ESD=0002 TYPE=REL  XREF=836 584 629 
+ SYM=K        LOC=000004A9 LEN=00000004 ESD=0002 TYPE=REL  XREF=837 
+ SYM=L        LOC=000004AD LEN=00000004 ESD=0002 TYPE=REL  XREF=838 
+ SYM=LEVEL1_ELSEIF_COUNTER LOC=00000454 LEN=00000004 ESD=0002 TYPE=REL  XREF=815 245 
+  273 282 291 
+ SYM=LEVEL1_ELSE_COUNTER LOC=00000458 LEN=00000004 ESD=0002 TYPE=REL  XREF=816 188 
+  296 783 
+ SYM=LEVEL1_FAIL_COUNTER LOC=0000045C LEN=00000004 ESD=0002 TYPE=REL  XREF=817 
+ SYM=LEVEL1_PASS_COUNTER LOC=00000450 LEN=00000004 ESD=0002 TYPE=REL  XREF=814 79 
+  91 102 118 131 144 183 236 264 326 354 385 429 459 501 544 588 633 682 712 788 
+ SYM=LEVEL2_ELSEIF_COUNTER LOC=00000464 LEN=00000004 ESD=0002 TYPE=REL  XREF=819 766 
+ SYM=LEVEL2_ELSE_COUNTER LOC=00000468 LEN=00000004 ESD=0002 TYPE=REL  XREF=820 692 
+  771 
+ SYM=LEVEL2_FAIL_COUNTER LOC=0000046C LEN=00000004 ESD=0002 TYPE=REL  XREF=821 
+ SYM=LEVEL2_PASS_COUNTER LOC=00000460 LEN=00000004 ESD=0002 TYPE=REL  XREF=818 687 
+  717 
+ SYM=LEVEL3_ELSEIF_COUNTER LOC=00000474 LEN=00000004 ESD=0002 TYPE=REL  XREF=823 731 
+  740 749 
+ SYM=LEVEL3_ELSE_COUNTER LOC=00000478 LEN=00000004 ESD=0002 TYPE=REL  XREF=824 754 
+ SYM=LEVEL3_PASS_COUNTER LOC=00000470 LEN=00000004 ESD=0002 TYPE=REL  XREF=822 722 
+ SYM=R0       LOC=00000000 LEN=00000001 ESD=0000 TYPE=ABS  XREF=8 
+ SYM=R10      LOC=0000000A LEN=00000001 ESD=0000 TYPE=ABS  XREF=18 84 88 
+ SYM=R1       LOC=00000001 LEN=00000001 ESD=0000 TYPE=ABS  XREF=9 32 35 36 125 128 
+ SYM=R11      LOC=0000000B LEN=00000001 ESD=0000 TYPE=ABS  XREF=19 29 30 31 
+ SYM=R12      LOC=0000000C LEN=00000001 ESD=0000 TYPE=ABS  XREF=20 27 28 29 31 799 
+  800 
+ SYM=R13      LOC=0000000D LEN=00000001 ESD=0000 TYPE=ABS  XREF=21 27 32 33 34 36 
+  798 799 
+ SYM=R14      LOC=0000000E LEN=00000001 ESD=0000 TYPE=ABS  XREF=22 27 799 802 
+ SYM=R15      LOC=0000000F LEN=00000001 ESD=0000 TYPE=ABS  XREF=23 28 351 801 
+ SYM=R2       LOC=00000002 LEN=00000001 ESD=0000 TYPE=ABS  XREF=10 126 128 
+ SYM=R3       LOC=00000003 LEN=00000001 ESD=0000 TYPE=ABS  XREF=11 
+ SYM=R4       LOC=00000004 LEN=00000001 ESD=0000 TYPE=ABS  XREF=12 
+ SYM=R5       LOC=00000005 LEN=00000001 ESD=0000 TYPE=ABS  XREF=13 138 141 
+ SYM=R6       LOC=00000006 LEN=00000001 ESD=0000 TYPE=ABS  XREF=14 139 141 
+ SYM=R7       LOC=00000007 LEN=00000001 ESD=0000 TYPE=ABS  XREF=15 
+ SYM=R8       LOC=00000008 LEN=00000001 ESD=0000 TYPE=ABS  XREF=16 
+ SYM=R9       LOC=00000009 LEN=00000001 ESD=0000 TYPE=ABS  XREF=17 
+ SYM=RISBHGZ010 LOC=00000074 LEN=00000006 ESD=0002 TYPE=REL  XREF=128 
+ SYM=RNSBG010 LOC=00000090 LEN=00000006 ESD=0002 TYPE=REL  XREF=141 
+ SYM=SAVEAREA LOC=000004B8 LEN=00000004 ESD=0003 TYPE=REL  XREF=41 35 798 
+ SYM=SHIFT_PACKED LOC=0000047C LEN=00000004 ESD=0002 TYPE=REL  XREF=825 109 115 
+ SYM=SPECIAL  LOC=00000480 LEN=00000001 ESD=0002 TYPE=REL  XREF=826 99 
+ SYM=SRP010   LOC=00000058 LEN=00000006 ESD=0002 TYPE=REL  XREF=115 
+ SYM=TS010    LOC=00000044 LEN=00000004 ESD=0002 TYPE=REL  XREF=99 
+ SYM=VCON$WA$ LOC=00000418 LEN=00000004 ESD=0002 TYPE=REL  XREF=804 33 
+ SYM=Z        LOC=000004B1 LEN=00000004 ESD=0002 TYPE=REL  XREF=839 76 233 241 261 
+  269 278 287 320 322 349 377 379 381 418 422 424 445 447 452 454 478 480 484 486 
+  490 492 520 524 526 529 531 535 537 540 559 561 566 568 572 574 576 580 584 603 
+  605 610 612 616 618 620 625 629 679 684 709 714 719 727 736 745 762 779 
+
+Literal Table Listing
+
+ LIT=C'12345672' LOC=00000430 LEN=00000008 ESD=0002 POOL=0001 XREF=138 
+ LIT=C'ABCDEFGC' LOC=00000438 LEN=00000008 ESD=0002 POOL=0001 XREF=139 
+ LIT=C'ZZZZ'  LOC=00000440 LEN=00000004 ESD=0002 POOL=0001 XREF=88 
+ LIT=P'1'     LOC=00000444 LEN=00000001 ESD=0002 POOL=0001 XREF=79 91 102 118 131 
+  144 183 188 236 245 264 273 282 291 296 326 354 385 429 459 501 544 588 633 682 
+  687 692 712 717 722 731 740 749 754 766 771 783 788 
+ LIT=X'0123456789ABCDEF' LOC=00000420 LEN=00000008 ESD=0002 POOL=0001 XREF=125 
+ LIT=X'FEDCBA9876543210' LOC=00000428 LEN=00000008 ESD=0002 POOL=0001 XREF=126 
+ LIT=Z'1234567' LOC=00000445 LEN=00000007 ESD=0002 POOL=0001 XREF=109 
+ 
+AZ390I total mnote warnings = 0
+AZ390I total mnote errors   = 0
+AZ390I max   mnote level    = 0
+AZ390I total mz390 errors   = 0
+AZ390I total az390 errors   = 0
+18:59:25 IFDOC     MZ390 ENDED   RC= 0 SEC= 2 MEM(MB)= 74 IO=2443
